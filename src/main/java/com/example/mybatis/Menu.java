@@ -222,11 +222,7 @@ public class Menu {
         System.out.println("请输入书号");
         int bookId = readInt();
         int i = borrowBookById(userId, bookId);
-        if(i>0){
-            System.out.println("借书成功");
-        }else {
-            System.out.println("借书失败了！");
-        }
+
     }
 private static void returnBookMenu(){
     System.out.println("请输入用户Id");
