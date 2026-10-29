@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatis.mapper.UserMapper">
+
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user (name,student_num)
+        VALUES (#{name},#{studentNum})
+    </insert>
+
+    <select id="selectByNum" resultType="user">
+        SELECT id,name,student_num FROM user WHERE student_num = #{studentNum}
+    </select>
+
+    <select id="selectAll" resultType="user">
+        SELECT * FROM user
+    </select>
+        
+    <delete id="deleteById">
+        DELETE FROM user WHERE id = #{id}
+    </delete>
+
+    <update id="updateNameById">
+        UPDATE user
+        SET name = #{name}
+        WHERE  id = #{id}
+    </update>
+
+
+
+</mapper>

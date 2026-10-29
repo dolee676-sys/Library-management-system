@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatis.mapper.BookMapper">
+    <select id="selectByBookname" resultType="book">
+        SELECT id,title,author,stock FROM book WHERE title LIKE concat('%', #{title}, '%')
+
+    </select>
+
+    <select id="selectByAuthor" resultType="book">
+        SELECT id,title,author,stock FROM book WHERE author = #{author}
+    </select>
+
+    <select id="selectAll" resultType="book">
+        SELECT id,title,author,stock FROM book ORDER BY id
+    </select>
+
+    <insert id="insertbook" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO book (title,author,stock)
+        VALUES (#{title},#{author},#{stock})
+    </insert>
+
+    <update id="updateAuthor">
+        UPDATE book
+        SET author = #{author}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateStock">
+        UPDATE book
+        SET stock = #{stock}
+        WHERE title = #{title}
+    </update>
+
+    <delete id="deleteBook">
+        DELETE
+        FROM book
+        WHERE id = #{id}
+    </delete>
+
+
+
+
+
+</mapper>
+
+
+

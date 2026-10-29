@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatis.mapper.QueryMapper">
+
+               <!--  根据学号来查他名下借过的书     -->
+    <select id="selectBookRecordByStudentNum" resultType="query">
+        SELECT
+            br.id,
+            u.name,
+            b.title,
+            br.borrow_time,
+            br.return_time,
+            br.status
+        FROM borrow_record br
+        JOIN `user` u ON u.id = br.user_id
+        JOIN book b ON b.id = br.book_id
+        WHERE u.student_num = #{studentNum}
+        AND br.status = '借出'
+    </select>
+
+        <select id="selectBookBorrowByWho" resultType="query">
+        SELECT
+            br.id,
+            u.name,
+            b.title,
+            br.borrow_time,
+            br.return_time,
+            br.status
+            FROM borrow_record br
+            JOIN user u ON u.id = br.user_id
+            JOIN book b ON b.id = br.book_id
+
+                <!--动态SQL用法，不符合条件sql就少了下面的sql语句，有了就符合，所以是动态 -->
+            <where>
+                <if test="title !=null and title !=''">
+                    AND b.title = #{title}
+                </if>
+                AND br.status = '借出'
+            </where>
+
+        </select>
+
+
+
+</mapper>

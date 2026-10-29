@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatis.mapper.BorrowMapper">
+  <insert id="borrowBook">
+      INSERT INTO borrow_record(user_id, book_id,status )
+      SELECT #{userId}, #{bookId},'借出'
+      FROM book
+      WHERE id = #{bookId} AND stock > 0
+  </insert>
+    
+   <update id="returnBook">
+       UPDATE borrow_record
+       SET return_time = NOW(),
+       status = '已还'
+       WHERE user_id = #{userId}
+       AND
+       book_id = #{bookId}
+       AND status = '借出'
+   </update>
+
+    <update id="updateBookStockIncrease">
+        UPDATE book
+        SET stock = stock+1
+        WHERE id = #{bookId}
+    </update>
+<!--    检查id，检查库存是否大于零，再进行减库存-->
+
+    <update id="updateBookStockDecrease">
+        UPDATE book
+        SET stock = stock - 1
+        WHERE id = #{bookId} AND stock>0
+    </update>
+
+    <!--     borrow_record的记录怎么办？-->
+    <!--加个计数器-->
+    <select id="countBorrowingByBookId" resultType="int">
+        SELECT COUNT(*) FROM borrow_record
+        WHERE book_id = #{bookId} AND status = '借出'
+    </select>
+</mapper>
