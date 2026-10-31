@@ -13,5 +13,7 @@ public interface QueryMapper {
 
     List<Query> selectBookBorrowByWho(@Param("title") String title);
 
+    User selectById(Integer id);
+    Book findBookById(Integer id);
 
 }

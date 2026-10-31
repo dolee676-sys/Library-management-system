@@ -43,5 +43,10 @@
         </select>
 
 
+    <select id="selectById" resultType="user">
+        SELECT id, name, student_num FROM user WHERE id = #{id}
+    </select>
 
+    <select id="findBookById" resultType="book">
+        SELECT id, title, author, stock FROM book WHERE id = #{bookId}    </select>
 </mapper>

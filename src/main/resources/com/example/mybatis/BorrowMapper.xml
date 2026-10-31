@@ -5,19 +5,21 @@
 <mapper namespace="com.example.mybatis.mapper.BorrowMapper">
   <insert id="borrowBook">
       INSERT INTO borrow_record(user_id, book_id,status )
-      SELECT #{userId}, #{bookId},'借出'
-      FROM book
-      WHERE id = #{bookId} AND stock > 0
+     VALUES (#{userId}, #{bookId},'借出')
+
   </insert>
     
    <update id="returnBook">
        UPDATE borrow_record
        SET return_time = NOW(),
        status = '已还'
-       WHERE user_id = #{userId}
+       WHERE user_id =#{userId}
        AND
-       book_id = #{bookId}
-       AND status = '借出'
+       id = #{recordId}
+       AND
+       status = '借出'
+
+
    </update>
 
     <update id="updateBookStockIncrease">
@@ -38,5 +40,10 @@
     <select id="countBorrowingByBookId" resultType="int">
         SELECT COUNT(*) FROM borrow_record
         WHERE book_id = #{bookId} AND status = '借出'
+    </select>
+
+    <select id="selectBookByRecordId" resultType="borrowrecord">
+        SELECT id, user_id, book_id, borrow_time, return_time, status
+        FROM borrow_record WHERE id = #{id}
     </select>
 </mapper>

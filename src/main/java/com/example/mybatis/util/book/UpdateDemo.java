@@ -29,12 +29,12 @@ public class UpdateDemo {
         }
     }
 
-    public static int updateStock(String title, int stock) {
+    public static int updateStock(Integer bookId, int stock) {
         SqlSession session = UserUtil.openSession();
         try {
             BookMapper mapper = session.getMapper(BookMapper.class);
 
-            int rows = mapper.updateStock(title, stock);
+            int rows = mapper.updateStock(bookId, stock);
             if (rows == 0) {
                 System.out.println("修改失败");
                 return 0;

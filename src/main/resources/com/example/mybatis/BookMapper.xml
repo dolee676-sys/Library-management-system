@@ -30,7 +30,7 @@
     <update id="updateStock">
         UPDATE book
         SET stock = #{stock}
-        WHERE title = #{title}
+        WHERE id = #{bookId}
     </update>
 
     <delete id="deleteBook">
@@ -38,6 +38,7 @@
         FROM book
         WHERE id = #{id}
     </delete>
+
 
 
 

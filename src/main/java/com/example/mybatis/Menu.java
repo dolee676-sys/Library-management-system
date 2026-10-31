@@ -79,9 +79,9 @@ public class Menu {
                    studentNum = SC.nextLine().trim();
                    int user = findUser(studentNum);
                    if(user>0) {
-                       System.out.println("查询成功,id = " + user);
+                       System.out.println("查询成功");
                    }else {
-                       System.out.println("查询失败");
+                       System.out.println("此人不存在");
                    }
                    break;
                case "3": listUser();  break;
@@ -97,6 +97,7 @@ public class Menu {
                    }else {
                        System.out.println("添加失败了！");
                    }
+                   break;
 
 
                case "0":
@@ -159,23 +160,23 @@ public class Menu {
                             break;
 
                         case "2":
-                            System.out.println("请输入书名");
-                            String bookTitle = SC.nextLine().trim();
+                            System.out.println("请输入书号");
+                            bookId = readInt();
                             System.out.println("请输入新库存");
                             int newStock = readInt();
-                            updateStock(bookTitle, newStock);
+                            updateStock(bookId, newStock);
                             break;
 
                         case"0":
                             System.out.println("返回上级菜单");
-                            return;
+                            break;
 
                         default:
                             System.out.println("没有这个选项");
                     }
-                    break;
 
-                case "0": return;
+
+
 
             }
         }
@@ -221,13 +222,13 @@ public class Menu {
         int userId = readInt();
         System.out.println("请输入书号");
         int bookId = readInt();
-        int i = borrowBookById(userId, bookId);
+        borrowBookById(userId, bookId);
 
     }
 private static void returnBookMenu(){
     System.out.println("请输入用户Id");
        int userId = readInt();
-    System.out.println("请输入要还的书号");
+    System.out.println("请输入要还的借阅Id号");
     int bookId = readInt();
     int i = returnBookById(userId, bookId);
     if(i>0){
